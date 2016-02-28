@@ -18,6 +18,7 @@ var options = {
 var security_options = {
     api_key: function (req, authOrSecDef, scopesOrApiKey, cb) {
       try {
+        console.log(req.headers);
         var decoded = jwt.verify(req.headers.api_key, config.secret);
         if (decoded) {
           req.swagger.params.user_data = decoded;
