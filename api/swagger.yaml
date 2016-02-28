@@ -1,0 +1,331 @@
+---
+swagger: "2.0"
+info:
+  description: "Gate control"
+  version: "1.0.0"
+  title: "Gate API"
+host: "gateapi.burntsheep.com"
+basePath: "/v1"
+schemes:
+- "http"
+produces:
+- "application/json"
+paths:
+  /gates:
+    get:
+      tags:
+      - "Gates"
+      summary: "Gate list"
+      description: "The gates endpoint returns information about the gates connected\
+        \ to the controller.\n"
+      operationId: "getGates"
+      parameters: []
+      responses:
+        200:
+          description: "An array of gates"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Gate"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Gates"
+  /gates/{gateId}:
+    get:
+      summary: "Gate status"
+      description: "The gates endpoint with an id returns information about the specific\
+        \ gate connected to the controller.\n"
+      operationId: "getGateById"
+      parameters:
+      - name: "gateId"
+        in: "path"
+        description: "ID of gate that needs to be fetched"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Gate"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Gate not found"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Default"
+  /gates/{gateId}/hold:
+    get:
+      tags:
+      - "gate"
+      summary: "Holds a gate open"
+      description: ""
+      operationId: "holdGate"
+      parameters:
+      - name: "gateId"
+        in: "path"
+        description: "ID of gate that needs to be updated"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Gate"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Gate not found"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Gate"
+  /gates/{gateId}/open:
+    get:
+      tags:
+      - "gate"
+      summary: "Opens a gate"
+      description: ""
+      operationId: "openGate"
+      parameters:
+      - name: "gateId"
+        in: "path"
+        description: "ID of gate that needs to be updated"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Gate"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Gate not found"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Gate"
+  /gates/{gateId}/unhold:
+    get:
+      tags:
+      - "gate"
+      summary: "Releases the hold on a gate"
+      description: ""
+      operationId: "unholdGate"
+      parameters:
+      - name: "gateId"
+        in: "path"
+        description: "ID of gate that needs to be updated"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Gate"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Gate not found"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "Gate"
+  /users:
+    post:
+      tags:
+      - "user"
+      summary: "Create user"
+      description: "This can only be done by the logged in user."
+      operationId: "createUser"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Created user object"
+        required: false
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        default:
+          description: "successful operation"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "User"
+  /users/login:
+    get:
+      tags:
+      - "user"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginUser"
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "The user name for login"
+        required: false
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password for login in clear text"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: "Invalid username/password supplied"
+      x-swagger-router-controller: "User"
+  /users/logout:
+    get:
+      tags:
+      - "user"
+      summary: "Logs out current logged in user session"
+      description: ""
+      operationId: "logoutUser"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "User"
+  /users/{username}:
+    get:
+      tags:
+      - "user"
+      summary: "Get user by user name"
+      description: ""
+      operationId: "getUserByName"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be fetched. Use user1 for testing."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: "Invalid username supplied"
+        404:
+          description: "User not found"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "User"
+    put:
+      tags:
+      - "user"
+      summary: "Updated user"
+      description: "This can only be done by the logged in user."
+      operationId: "updateUser"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "name that need to be deleted"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated user object"
+        required: false
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        400:
+          description: "Invalid user supplied"
+        404:
+          description: "User not found"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "User"
+    delete:
+      tags:
+      - "user"
+      summary: "Delete user"
+      description: "This can only be done by the logged in user."
+      operationId: "deleteUser"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be deleted"
+        required: true
+        type: "string"
+      responses:
+        400:
+          description: "Invalid username supplied"
+        404:
+          description: "User not found"
+      security:
+      - api_key: []
+      x-swagger-router-controller: "User"
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "gate_auth"
+    in: "header"
+definitions:
+  Gate:
+    type: "object"
+    properties:
+      gate_id:
+        type: "string"
+        description: "Unique identifier representing a gate."
+      description:
+        type: "string"
+        description: "Description of product."
+      display_name:
+        type: "string"
+        description: "Display name of product."
+      status:
+        type: "string"
+        description: "Status of the gate such as open, closed, or moving."
+      status_changed:
+        type: "string"
+        format: "date-time"
+        description: "Status of the gate such as open, closed, or moving."
+      held:
+        type: "string"
+        description: "Is the gate currently held by us, held by the remote, or not\
+          \ held."
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      username:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      userStatus:
+        type: "integer"
+        format: "int32"
+        description: "User Status"
+      display_name:
+        type: "string"
+        description: "Name displayed on web page."
+  Error:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+      fields:
+        type: "string"

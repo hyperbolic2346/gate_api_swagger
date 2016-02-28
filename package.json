@@ -1,0 +1,19 @@
+{
+  "name": "gate-api",
+  "version": "1.0.0",
+  "description": "Gate control",
+  "main": "index.js",
+  "keywords": [
+    "swagger"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "swagger-tools": "0.9.*",
+    "config": "^1.19.0",
+    "mysql": "^2.0",
+    "jsonwebtoken": "^5.7.0"
+  }
+}
