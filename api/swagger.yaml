@@ -32,7 +32,7 @@ paths:
           schema:
             $ref: "#/definitions/Error"
       security:
-      - api_key: []
+      - apikey: []
       x-swagger-router-controller: "Gates"
   /gates/{gateId}:
     get:
@@ -57,7 +57,7 @@ paths:
         404:
           description: "Gate not found"
       security:
-      - api_key: []
+      - apikey: []
       x-swagger-router-controller: "Default"
   /gates/{gateId}/hold:
     get:
@@ -82,7 +82,7 @@ paths:
         404:
           description: "Gate not found"
       security:
-      - api_key: []
+      - apikey: []
       x-swagger-router-controller: "Gate"
   /gates/{gateId}/open:
     get:
@@ -107,7 +107,7 @@ paths:
         404:
           description: "Gate not found"
       security:
-      - api_key: []
+      - apikey: []
       x-swagger-router-controller: "Gate"
   /gates/{gateId}/unhold:
     get:
@@ -132,7 +132,7 @@ paths:
         404:
           description: "Gate not found"
       security:
-      - api_key: []
+      - apikey: []
       x-swagger-router-controller: "Gate"
   /users:
     post:
@@ -152,7 +152,7 @@ paths:
         default:
           description: "successful operation"
       security:
-      - api_key: []
+      - apikey: []
       x-swagger-router-controller: "User"
   /users/login:
     get:
@@ -192,7 +192,7 @@ paths:
         default:
           description: "successful operation"
       security:
-      - api_key: []
+      - apikey: []
       x-swagger-router-controller: "User"
   /users/{username}:
     get:
@@ -217,7 +217,7 @@ paths:
         404:
           description: "User not found"
       security:
-      - api_key: []
+      - apikey: []
       x-swagger-router-controller: "User"
     put:
       tags:
@@ -243,7 +243,7 @@ paths:
         404:
           description: "User not found"
       security:
-      - api_key: []
+      - apikey: []
       x-swagger-router-controller: "User"
     delete:
       tags:
@@ -263,10 +263,10 @@ paths:
         404:
           description: "User not found"
       security:
-      - api_key: []
+      - apikey: []
       x-swagger-router-controller: "User"
 securityDefinitions:
-  api_key:
+  apikey:
     type: "apiKey"
     name: "gate_auth"
     in: "header"
