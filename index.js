@@ -26,7 +26,7 @@ var security_options = {
           cb(new Error('access denied!'));
         }
       } catch (err) {
-        cb(new Error('access denied!'));
+        cb(new Error('access denied! - ' + err));
       }
     }
 };
