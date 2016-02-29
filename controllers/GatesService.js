@@ -1,4 +1,6 @@
 'use strict';
+var config = require('config');
+var http = require('http');
 
 exports.getGates = function(args, res, next) {
   /**
