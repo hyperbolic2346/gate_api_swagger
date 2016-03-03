@@ -32,9 +32,10 @@ exports.loginUser = function(args, res, next) {
 //  var md5_pw_hash = crypto.createHash('md5').update(args.password.value).digest("hex");
 
   //con.query('SELECT * from users WHERE username = "' + args.username.value + '" AND password = "' + md5_pw_hash + '"', function (err, rows, fields) {
-  con.query('SELECT * from users WHERE username = "' + con.escape(args.username.value) + '" AND password = "' + con.escape(args.password.value) + '"', function (err, rows, fields) {
+  var query = con.query('SELECT * from users WHERE username = "' + con.escape(args.username.value) + '" AND password = "' + con.escape(args.password.value) + '"', function (err, rows, fields) {
     if (err || rows.length == 0) {
       res.end('Invalid user information!');
+      console.log('invalid query ' + query.sql);
       return;
     }
 
